@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashwaq Mohammed – Google Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fff;
+    font-family: arial, sans-serif;
+    color: #202124;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  .g-header {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px 14px;
+    border-bottom: 1px solid #ebebeb;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 100;
+    gap: 20px;
+  }
+
+  .g-logo {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .g-logo span:nth-child(1) { color: #4285F4; }
+  .g-logo span:nth-child(2) { color: #EA4335; }
+  .g-logo span:nth-child(3) { color: #FBBC05; }
+  .g-logo span:nth-child(4) { color: #4285F4; }
+  .g-logo span:nth-child(5) { color: #34A853; }
+  .g-logo span:nth-child(6) { color: #EA4335; }
+
+  .g-search-bar-wrap {
+    flex: 1;
+    max-width: 680px;
+  }
+
+  .g-search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    padding: 8px 16px 8px 18px;
+    gap: 10px;
+    box-shadow: 0 1px 6px rgba(32,33,36,.12);
+    transition: box-shadow .2s;
+    cursor: text;
+  }
+  .g-search-bar:hover { box-shadow: 0 2px 8px rgba(32,33,36,.20); }
+
+  .search-query {
+    flex: 1;
+    font-size: 16px;
+    color: #202124;
+    font-family: arial, sans-serif;
+  }
+
+  .search-icons { display: flex; align-items: center; gap: 10px; }
+  .search-icons svg { color: #9aa0a6; cursor: pointer; }
+  .search-divider { width: 1px; height: 24px; background: #dfe1e5; }
+
+  .g-header-nav {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+    align-items: center;
+  }
+
+  .g-header-nav a {
+    font-size: 13px;
+    color: #202124;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .g-header-nav a:hover { background: #f1f3f4; }
+
+  .signin-btn {
+    background: #1a73e8;
+    color: #fff !important;
+    border-radius: 4px;
+    padding: 8px 16px !important;
+    font-weight: 500;
+  }
+  .signin-btn:hover { background: #1557b0 !important; }
+
+  /* ─── TABS ─── */
+  .g-tabs {
+    display: flex;
+    gap: 0;
+    padding: 0 168px;
+    border-bottom: 1px solid #ebebeb;
+    overflow-x: auto;
+  }
+
+  .g-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #70757a;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .g-tab:hover { color: #202124; background: #f1f3f4; }
+  .g-tab.active { color: #1a73e8; border-bottom-color: #1a73e8; }
+  .g-tab svg { width: 16px; height: 16px; }
+
+  /* ─── BODY LAYOUT ─── */
+  .g-body {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 0 40px;
+  }
+
+  .g-main {
+    flex: 1;
+    max-width: 654px;
+    padding: 0 24px 0 168px;
+  }
+
+  .g-sidebar {
+    width: 350px;
+    padding-right: 24px;
+    flex-shrink: 0;
+  }
+
+  /* ─── RESULT META ─── */
+  .result-meta {
+    font-size: 13px;
+    color: #70757a;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .result-meta .tools-link {
+    color: #1a73e8;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+  .result-meta .tools-link:hover { text-decoration: underline; }
+
+  /* ─── FEATURED SNIPPET ─── */
+  .featured-snippet {
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .featured-snippet::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #4285F4, #34A853, #FBBC05, #EA4335);
+  }
+
+  .featured-snippet .snippet-header {
+    font-size: 12px;
+    color: #70757a;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .featured-snippet .snippet-header svg { width: 14px; height: 14px; }
+
+  .snippet-title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #202124;
+    margin-bottom: 8px;
+  }
+
+  .snippet-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #3c4043;
+  }
+
+  .snippet-body strong { color: #1a73e8; }
+
+  .snippet-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .snippet-tag {
+    background: #e8f0fe;
+    color: #1a73e8;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+
+  /* ─── SEARCH RESULTS ─── */
+  .search-result {
+    margin-bottom: 24px;
+    animation: fadeIn .4s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-source {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .result-favicon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .result-domain {
+    font-size: 14px;
+    color: #202124;
+    line-height: 1.3;
+  }
+
+  .result-breadcrumb {
+    font-size: 12px;
+    color: #70757a;
+  }
+
+  .result-title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #1a0dab;
+    text-decoration: none;
+    line-height: 1.3;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .result-title:hover { text-decoration: underline; }
+
+  .result-desc {
+    font-size: 14px;
+    line-height: 1.58;
+    color: #4d5156;
+  }
+
+  .result-desc .highlight { font-weight: 700; color: #202124; }
+
+  /* Sitelinks */
+  .sitelinks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 8px;
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .sitelink {
+    padding: 12px 16px;
+    border-right: 1px solid #dfe1e5;
+    border-bottom: 1px solid #dfe1e5;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .sitelink:hover { background: #f8f9fa; }
+  .sitelink:nth-child(2n) { border-right: none; }
+  .sitelink:nth-last-child(-n+2) { border-bottom: none; }
+
+  .sitelink-title {
+    font-size: 14px;
+    color: #1a0dab;
+    margin-bottom: 2px;
+    font-weight: 400;
+  }
+  .sitelink-title:hover { text-decoration: underline; }
+  .sitelink-desc {
+    font-size: 12px;
+    color: #70757a;
+    line-height: 1.4;
+  }
+
+  /* Stats bar inside result */
+  .result-stats {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #f1f3f4;
+  }
+
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #70757a;
+    background: #f1f3f4;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .stat-pill strong { color: #1a73e8; font-size: 13px; }
+
+  /* ─── KNOWLEDGE PANEL ─── */
+  .knowledge-panel {
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+
+  .kp-header {
+    background: linear-gradient(135deg, #4285F4 0%, #1a73e8 50%, #0d47a1 100%);
+    padding: 24px 20px 20px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kp-header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; right: -30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+  }
+
+  .kp-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    border: 2px solid rgba(255,255,255,.4);
+  }
+
+  .kp-name {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .kp-subtitle {
+    font-size: 13px;
+    opacity: .85;
+    line-height: 1.4;
+  }
+
+  .kp-body { padding: 0; }
+
+  .kp-row {
+    display: flex;
+    padding: 11px 20px;
+    border-bottom: 1px solid #f1f3f4;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .kp-row:last-child { border-bottom: none; }
+
+  .kp-label {
+    font-size: 12px;
+    color: #70757a;
+    min-width: 80px;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+
+  .kp-value {
+    font-size: 13px;
+    color: #202124;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .kp-value a { color: #1a73e8; text-decoration: none; }
+  .kp-value a:hover { text-decoration: underline; }
+
+  .kp-chip {
+    display: inline-block;
+    background: #e8f0fe;
+    color: #1a73e8;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin: 2px 2px 2px 0;
+  }
+
+  /* Status badge */
+  .kp-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #e6f4ea;
+    color: #137333;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+  .kp-status::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: #34A853;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .6; transform: scale(1.2); }
+  }
+
+  /* People Also Ask */
+  .paa-section { margin-bottom: 24px; }
+  .paa-title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #202124;
+    margin-bottom: 10px;
+  }
+
+  .paa-item {
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+
+  .paa-question {
+    padding: 14px 18px;
+    font-size: 14px;
+    color: #202124;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .paa-question:hover { background: #f8f9fa; }
+
+  .paa-chevron {
+    width: 18px; height: 18px;
+    color: #70757a;
+    transition: transform .2s;
+  }
+
+  .paa-answer {
+    padding: 0 18px 14px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4d5156;
+    display: none;
+    border-top: 1px solid #f1f3f4;
+  }
+  .paa-answer.open { display: block; }
+  .paa-question.open .paa-chevron { transform: rotate(180deg); }
+
+  /* Related Searches */
+  .related-section { margin-top: 28px; }
+  .related-title {
+    font-size: 18px;
+    color: #202124;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .related-item {
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #202124;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background .15s;
+  }
+  .related-item:hover { background: #f8f9fa; }
+  .related-item svg { color: #9aa0a6; flex-shrink: 0; }
+
+  /* "Sponsored" ad result */
+  .ad-result {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .ad-badge {
+    font-size: 11px;
+    color: #70757a;
+    border: 1px solid #dadce0;
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-right: 6px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  /* Print note */
+  .print-note {
+    margin-top: 32px;
+    padding: 16px 20px;
+    background: #fafafa;
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #70757a;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .print-note a { color: #1a73e8; }
+
+  /* Footer */
+  .g-footer {
+    background: #f2f2f2;
+    border-top: 1px solid #e0e0e0;
+    padding: 15px 24px;
+    font-size: 14px;
+    color: #70757a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .g-footer a { color: #70757a; text-decoration: none; margin: 0 8px; }
+  .g-footer a:hover { text-decoration: underline; }
+
+  /* Animations stagger */
+  .search-result:nth-child(1) { animation-delay: .05s; }
+  .search-result:nth-child(2) { animation-delay: .1s; }
+  .search-result:nth-child(3) { animation-delay: .15s; }
+  .search-result:nth-child(4) { animation-delay: .2s; }
+  .search-result:nth-child(5) { animation-delay: .25s; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .g-sidebar { display: none; }
+    .g-main { padding-left: 24px; max-width: 100%; }
+    .g-tabs { padding: 0 20px; }
+  }
+
+  @media print {
+    .g-header { position: static; }
+    .search-result { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="g-header">
+  <div class="g-logo">
+    <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+  </div>
+
+  <div class="g-search-bar-wrap">
+    <div class="g-search-bar">
+      <div class="search-query">Ashwaq Mohammed Senior Financial Analyst Google</div>
+      <div class="search-icons">
+        <!-- X icon -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+        <div class="search-divider"></div>
+        <!-- Mic icon -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+        <!-- Search icon -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4285F4" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <nav class="g-header-nav">
+    <a href="#">Settings</a>
+    <a href="#">Tools</a>
+    <a href="#" class="signin-btn">Sign in</a>
+  </nav>
+</header>
+
+<!-- TABS -->
+<div class="g-tabs">
+  <a class="g-tab active" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    All
+  </a>
+  <a class="g-tab" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" w="18" h="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+    News
+  </a>
+  <a class="g-tab" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    Videos
+  </a>
+  <a class="g-tab" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    People
+  </a>
+  <a class="g-tab" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Finance
+  </a>
+  <a class="g-tab" href="#">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+    More
+  </a>
+</div>
+
+<!-- BODY -->
+<div class="g-body">
+
+  <!-- MAIN RESULTS -->
+  <main class="g-main">
+
+    <!-- Result count -->
+    <div class="result-meta">
+      About <strong>847,000,000</strong> results (0.42 seconds)
+      <span class="tools-link">▾ Tools</span>
+    </div>
+
+    <!-- ── FEATURED SNIPPET ── -->
+    <div class="featured-snippet search-result">
+      <div class="snippet-header">
+        <svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Featured Result · linkedin.com/in/abdulashwaq
+      </div>
+      <div class="snippet-title">Ashwaq Mohammed — Senior Financial Analyst</div>
+      <div class="snippet-body">
+        Capital One financial analyst with <strong>4+ years</strong> driving FP&A across <strong>$30B+</strong> in credit-card and consumer-lending assets.
+        Surfaces cost gaps, lifts forecast accuracy, and cuts close cycles — powered by a modern stack of <strong>Python, SQL, dbt, Airflow, Snowflake,</strong> and <strong>Power BI</strong>. 
+        Trusted partner to Treasury, Credit Card Risk, Product, and FP&A leadership. 
+        Targeting <strong>Strategic Finance roles at Google</strong>.
+      </div>
+      <div class="snippet-tags">
+        <span class="snippet-tag">FP&A</span>
+        <span class="snippet-tag">Strategic Finance</span>
+        <span class="snippet-tag">$30B+ Portfolio</span>
+        <span class="snippet-tag">Python · SQL · dbt</span>
+        <span class="snippet-tag">Power BI</span>
+        <span class="snippet-tag">DCF / NPV / IRR</span>
+        <span class="snippet-tag">Monte Carlo</span>
+        <span class="snippet-tag">Snowflake</span>
+        <span class="snippet-tag">AI-Assisted Forecasting</span>
+      </div>
+    </div>
+
+    <!-- ── RESULT 1: LinkedIn ── -->
+    <div class="search-result">
+      <div class="result-source">
+        <div class="result-favicon" style="background:#0077B5;">in</div>
+        <div>
+          <div class="result-domain">linkedin.com</div>
+          <div class="result-breadcrumb">linkedin.com › in › abdulashwaq</div>
+        </div>
+      </div>
+      <a class="result-title" href="#">Ashwaq Mohammed – Financial Analyst – Capital One | LinkedIn</a>
+      <div class="result-desc">
+        <span class="highlight">Senior Financial Analyst</span> at Capital One Financial · <span class="highlight">$4.7M</span> in cost gaps surfaced · 
+        Forecast accuracy lifted <span class="highlight">18%</span> on $30B+ portfolio · 45% faster financial close · 
+        Open to <span class="highlight">Strategic Finance roles at Google</span>. 
+        New Jersey, USA · 500+ connections.
+      </div>
+      <div class="result-stats">
+        <span class="stat-pill"><strong>4+</strong> yrs experience</span>
+        <span class="stat-pill"><strong>$30B+</strong> managed</span>
+        <span class="stat-pill"><strong>$4.7M</strong> cost gaps identified</span>
+        <span class="stat-pill"><strong>100%</strong> SOX audit pass</span>
+      </div>
+
+      <!-- Sitelinks -->
+      <div class="sitelinks">
+        <div class="sitelink">
+          <div class="sitelink-title">Experience</div>
+          <div class="sitelink-desc">Capital One · Accenture · 4+ years total</div>
+        </div>
+        <div class="sitelink">
+          <div class="sitelink-title">Skills & Stack</div>
+          <div class="sitelink-desc">Python, SQL, dbt, Snowflake, Power BI</div>
+        </div>
+        <div class="sitelink">
+          <div class="sitelink-title">Education</div>
+          <div class="sitelink-desc">MS Information Systems · Stevens · 3.5 GPA</div>
+        </div>
+        <div class="sitelink">
+          <div class="sitelink-title">Contact</div>
+          <div class="sitelink-desc">ashwaqmohammed373@gmail.com · NJ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RESULT 2: GitHub ── -->
+    <div class="search-result">
+      <div class="result-source">
+        <div class="result-favicon" style="background:#24292e;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </div>
+        <div>
+          <div class="result-domain">github.com</div>
+          <div class="result-breadcrumb">github.com › ashmohdd</div>
+        </div>
+      </div>
+      <a class="result-title" href="#">ashmohdd (Ashwaq Mohammed) – GitHub</a>
+      <div class="result-desc">
+        Finance-meets-engineering GitHub profile. Repositories include <span class="highlight">Python-Airflow finance pipelines</span>, 
+        dbt-based SQL transformations on <span class="highlight">Snowflake</span>, cash-flow forecasting models, 
+        and <span class="highlight">AI-assisted FP&A commentary</span> tools. 
+        Customer churn prediction · FIFA 20 clustering · Spotify analysis. 
+        Stars: 247 · Followers: 89.
+      </div>
+    </div>
+
+    <!-- ── RESULT 3: Capital One Profile ── -->
+    <div class="search-result">
+      <div class="result-source">
+        <div class="result-favicon" style="background:#fff;border:1px solid #dfe1e5;overflow:hidden;padding:0;"><img src="data:image/png;base64,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" style="width:18px;height:18px;object-fit:contain;display:block;"></div>
+        <div>
+          <div class="result-domain">capitalone.com</div>
+          <div class="result-breadcrumb">capitalone.com › careers › our-team › finance</div>
+        </div>
+      </div>
+      <a class="result-title" href="#">Capital One Financial – Analyst Profile: Ashwaq Mohammed</a>
+      <div class="result-desc">
+        Feb 2024 – Present · <span class="highlight">Treasury &amp; FP&A</span>, Capital One. 
+        Rebuilt cash-flow forecasting model in Python across $30B+ credit-card &amp; consumer-lending portfolio. 
+        Surfaced <span class="highlight">$4.7M in cost gaps</span>. Engineered Python + Airflow finance pipelines cutting close cycle by 45%. 
+        Spearheaded zero-based budgeting reviews. Supported <span class="highlight">$100M+ in investment approvals</span>. 
+        100% SOX &amp; GAAP audit-pass rate.
+      </div>
+    </div>
+
+    <!-- ── AD RESULT ── -->
+    <div class="search-result ad-result">
+      <div class="result-source">
+        <div class="result-favicon" style="background:#34A853;">G</div>
+        <div>
+          <div class="result-domain">
+            <span class="ad-badge">Sponsored</span>
+            careers.google.com
+          </div>
+          <div class="result-breadcrumb">careers.google.com › jobs › strategic-finance</div>
+        </div>
+      </div>
+      <a class="result-title" href="#" style="color:#1a0dab;">Google Careers – Strategic Finance Analyst, Google Finance</a>
+      <div class="result-desc">
+        📍 Mountain View, CA / Remote · <span class="highlight">This role is looking for someone exactly like Ashwaq.</span> 
+        Responsibilities: FP&A leadership, financial modeling, cross-functional partnering with Product and Engineering. 
+        Required: Python, SQL, advanced modeling. Preferred: dbt, Airflow, Snowflake. 
+        <em style="color:#137333">★ Strong match based on candidate profile.</em>
+      </div>
+    </div>
+
+    <!-- ── RESULT 4: Accenture ── -->
+    <div class="search-result">
+      <div class="result-source">
+        <div class="result-favicon" style="background:#A100FF;">A</div>
+        <div>
+          <div class="result-domain">accenture.com</div>
+          <div class="result-breadcrumb">accenture.com › talent › finance-analytics</div>
+        </div>
+      </div>
+      <a class="result-title" href="#">Accenture Solutions – Analyst Alumni: Ashwaq Mohammed</a>
+      <div class="result-desc">
+        May 2020 – Jul 2022 · Finance &amp; Analytics Division · India. 
+        Delivered <span class="highlight">15% improvement in outlook accuracy</span> for Fortune 500 CFO teams. 
+        Owned end-to-end GL reconciliation for banking &amp; retail clients in <span class="highlight">SAP FI/CO</span>. 
+        Automated reporting workflows — 35% reduction in manual processing. 
+        99.5% data accuracy across Google BigQuery &amp; Bloomberg Terminal datasets.
+      </div>
+    </div>
+
+    <!-- ── PEOPLE ALSO ASK ── -->
+    <div class="paa-section">
+      <div class="paa-title">People also ask</div>
+
+      <div class="paa-item">
+        <div class="paa-question" onclick="togglePAA(this)">
+          What makes Ashwaq Mohammed stand out for a Google Finance role?
+          <svg class="paa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="paa-answer">
+          Ashwaq uniquely bridges traditional FP&A rigor with a modern engineering mindset — he doesn't just build models, he automates them. 
+          Replacing legacy workflows with Python-Airflow DAGs and dbt on Snowflake means he ships the same output in 45% less time. 
+          Pair that with $100M+ in investment approvals and a proven AI-assisted forecasting pipeline, and he's already operating at the intersection of finance and technology that Google Finance demands.
+        </div>
+      </div>
+
+      <div class="paa-item">
+        <div class="paa-question" onclick="togglePAA(this)">
+          What is Ashwaq Mohammed's technical stack?
+          <svg class="paa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="paa-answer">
+          Python (pandas, NumPy, statsmodels) · SQL · dbt · Apache Airflow · Snowflake · AWS Redshift · Google BigQuery · 
+          Power BI · Tableau · Looker · Alteryx · Excel VBA · SAP FI/CO · Oracle Financials · NetSuite · Bloomberg Terminal · 
+          UiPath · MS Power Automate. Finance modeling: DCF, NPV, IRR, Monte Carlo, ZBB, AOP, LRP.
+        </div>
+      </div>
+
+      <div class="paa-item">
+        <div class="paa-question" onclick="togglePAA(this)">
+          Where did Ashwaq Mohammed study?
+          <svg class="paa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="paa-answer">
+          Master of Science in Information Systems · Stevens Institute of Technology, Hoboken NJ · GPA 3.5 · 
+          Dean's Merit Scholarship: $25,000 · Full-time program, Aug 2022 – May 2024. 
+          The program's focus on data-driven systems directly shaped his approach to finance automation and pipeline engineering.
+        </div>
+      </div>
+
+      <div class="paa-item">
+        <div class="paa-question" onclick="togglePAA(this)">
+          How can Google contact Ashwaq Mohammed?
+          <svg class="paa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="paa-answer">
+          📧 ashwaqmohammed373@gmail.com · 📞 917-348-5156 · 
+          🔗 linkedin.com/in/abdulashwaq · 💻 github.com/ashmohdd · 
+          📍 New Jersey, USA — available for interviews in-person or remote.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RESULT 5: Medium ── -->
+    <div class="search-result">
+      <div class="result-source">
+        <div class="result-favicon" style="background:#000;">M</div>
+        <div>
+          <div class="result-domain">medium.com</div>
+          <div class="result-breadcrumb">medium.com › @ashwaq · Finance & Data</div>
+        </div>
+      </div>
+      <a class="result-title" href="#">Ashwaq Mohammed – Finance × Data · Medium</a>
+      <div class="result-desc">
+        Writing at the intersection of financial planning and data engineering. 
+        Recent: <em>"How I rebuilt a $30B cash-flow model in Python — and what Finance teams can learn from it"</em> · 
+        <em>"ZBB in practice: stress-testing 8 macro variables for Capital One's Retail Bank"</em> · 
+        <span class="highlight">AI-assisted FP&A</span>: using LLMs to write variance narratives 60% faster.
+      </div>
+    </div>
+
+    <!-- ── RELATED SEARCHES ── -->
+    <div class="related-section">
+      <div class="related-title">Related searches</div>
+      <div class="related-grid">
+        <div class="related-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Ashwaq Mohammed Google Finance interview
+        </div>
+        <div class="related-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Capital One FP&A analyst skills 2025
+        </div>
+        <div class="related-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Strategic Finance Analyst Google requirements
+        </div>
+        <div class="related-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Python Airflow dbt finance pipeline
+        </div>
+        <div class="related-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Ashwaq Mohammed LinkedIn resume
+        </div>
+        <div class="related-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          FP&A analyst $30B credit card portfolio
+        </div>
+      </div>
+    </div>
+
+    <div class="print-note">
+      This resume was crafted as a Google Search page — because the best way to show you I belong at Google<br>
+      is to speak your language from the very first impression.<br>
+      <a href="#">ashwaqmohammed373@gmail.com</a> · <a href="#">917-348-5156</a> · <a href="#">linkedin.com/in/abdulashwaq</a>
+    </div>
+
+  </main>
+
+  <!-- KNOWLEDGE PANEL -->
+  <aside class="g-sidebar">
+    <div class="knowledge-panel">
+      <div class="kp-header">
+        <div class="kp-avatar">AM</div>
+        <div class="kp-name">Ashwaq Mohammed</div>
+        <div class="kp-subtitle">Senior Financial Analyst · FP&A · Strategic Finance</div>
+      </div>
+      <div class="kp-body">
+        <div class="kp-row">
+          <div class="kp-label">Status</div>
+          <div class="kp-value"><span class="kp-status">Open to Google roles</span></div>
+        </div>
+        <div class="kp-row">
+          <div class="kp-label">Currently</div>
+          <div class="kp-value">Financial Analyst<br><a href="#">Capital One Financial</a> · Feb 2024 – Present</div>
+        </div>
+        <div class="kp-row">
+          <div class="kp-label">Previously</div>
+          <div class="kp-value">Junior Financial Analyst<br><a href="#">Accenture Solutions</a> · 2020 – 2022, India</div>
+        </div>
+        <div class="kp-row">
+          <div class="kp-label">Education</div>
+          <div class="kp-value">MS Information Systems<br><a href="#">Stevens Institute of Technology</a><br>GPA 3.5 · $25K Dean's Scholarship</div>
+        </div>
+        <div class="kp-row">
+          <div class="kp-label">Location</div>
+          <div class="kp-value">New Jersey, USA</div>
+        </div>
+        <div class="kp-row">
+          <div class="kp-label">Impact</div>
+          <div class="kp-value">
+            <span class="kp-chip">$4.7M cost gaps surfaced</span>
+            <span class="kp-chip">18% forecast accuracy ↑</span>
+            <span class="kp-chip">45% faster close cycle</span>
+            <span class="kp-chip">$100M+ approvals</span>
+            <span class="kp-chip">60% faster commentary</span>
+            <span class="kp-chip">100% SOX audit pass</span>
+          </div>
+        </div>
+        <div class="kp-row">
+          <div class="kp-label">Core stack</div>
+          <div class="kp-value">
+            <span class="kp-chip">Python</span><span class="kp-chip">SQL</span>
+            <span class="kp-chip">dbt</span><span class="kp-chip">Airflow</span>
+            <span class="kp-chip">Snowflake</span><span class="kp-chip">Power BI</span>
+            <span class="kp-chip">BigQuery</span><span class="kp-chip">SAP FI/CO</span>
+          </div>
+        </div>
+        <div class="kp-row">
+          <div class="kp-label">Finance</div>
+          <div class="kp-value">
+            <span class="kp-chip">DCF</span><span class="kp-chip">NPV / IRR</span>
+            <span class="kp-chip">Monte Carlo</span><span class="kp-chip">ZBB</span>
+            <span class="kp-chip">AOP / LRP</span><span class="kp-chip">GAAP / SOX</span>
+          </div>
+        </div>
+        <div class="kp-row">
+          <div class="kp-label">AI / New</div>
+          <div class="kp-value">
+            <span class="kp-chip">LLM/Copilot FP&A</span>
+            <span class="kp-chip">Generative AI Narratives</span>
+            <span class="kp-chip">AI-Assisted Forecasting</span>
+          </div>
+        </div>
+        <div class="kp-row">
+          <div class="kp-label">Contact</div>
+          <div class="kp-value">
+            <a href="mailto:ashwaqmohammed373@gmail.com">ashwaqmohammed373@gmail.com</a><br>
+            <a href="tel:9173485156">917-348-5156</a><br>
+            <a href="#">linkedin.com/in/abdulashwaq</a><br>
+            <a href="#">github.com/ashmohdd</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="g-footer">
+  <div>New Jersey, USA — based on your search settings</div>
+  <div>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Settings</a>
+    <a href="#">Feedback</a>
+    <a href="#">About</a>
+  </div>
+</footer>
+
+<script>
+  function togglePAA(el) {
+    const answer = el.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.paa-answer').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.paa-question').forEach(q => q.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      el.classList.add('open');
+    }
+  }
+</script>
+
+</body>
+</html>
