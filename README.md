@@ -1,14 +1,41 @@
-# GitHub Pages setup for Google-styled-resume-
+# SaaS Tech Financial Planning Dashboard
 
-This repository contains an `index.html` file at the root. You can view the live GitHub Pages site at:
+This project demonstrates end-to-end FP&A automation for a simulated SaaS company, including:
+- Automated financial data pipeline
+- Time-series forecasting (revenue, churn, expenses)
+- Driver-based scenario modeling
+- Interactive dashboard for “what-if” analysis
+- Executive-ready reporting & business insights
 
-https://ashmohdd.github.io/Google-styled-resume-/
+**Skills Demonstrated**: Financial modeling • Data engineering (Python/Pandas) • Machine learning (Prophet/ARIMA) • Scenario analysis • Dashboarding (Streamlit/Tableau)
 
-**How to update your GitHub Pages settings**:
-1. Go to `Settings` → `Pages` in this repository.
-2. Set the source to the `main` branch and the `/ (root)` folder.
-3. Save the setting.
+## Quickstart
+1. Clone this repo
+2. Run notebooks in `/notebooks` to generate sample data and perform forecasting
+3. Launch `/src/dashboard_app.py` to view the interactive dashboard
 
-It may take a few minutes for changes to show at the GitHub Pages URL after saving your settings.
+## Project Structure
+```
+/
+├── data/
+│   └── (raw & processed data files)
+├── notebooks/
+│   └── 01_data_simulation.ipynb
+│   └── 02_forecasting.ipynb
+│   └── 03_scenario_modeling.ipynb
+├── src/
+│   └── pipeline.py
+│   └── forecasting.py
+│   └── dashboard_app.py
+├── dashboard/
+│   └── (streamlit or Tableau files)
+├── reports/
+│   └── (auto-generated presentations/PDFs)
+├── requirements.txt
+└── README.md
+```
 
-If your site does not appear, double-check the branch/folder settings and make sure your repository is public.
+## About Me
+Experienced financial analyst specializing in FP&A, analytics, and data-driven strategy. Passionate about leveraging technology to solve business challenges in the tech industry.
+
+---
